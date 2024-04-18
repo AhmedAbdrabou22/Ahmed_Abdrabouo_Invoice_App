@@ -1,0 +1,52 @@
+{
+  "invoices": [
+    {
+      "id": 1,
+      "invoiceNumber": "RT12330",
+      "name": "Ahmed Abdrabou",
+      "status": "pending",
+      "price": "500",
+      "date": "2020-08-10"
+    },
+    {
+      "id": 2,
+      "invoiceNumber": "GT15630",
+      "name": "yasser",
+      "status": "draft",
+      "price": "200",
+      "date": "2021-08-10"
+    },
+    {
+      "id": 0.26130935616889506,
+      "invoiceNumber": "data",
+      "name": "Saied",
+      "status": "paid",
+      "price": "333",
+      "date": "2024-04-27"
+    },
+    {
+      "id": 7.513054730259718,
+      "invoiceNumber": "data",
+      "name": "data",
+      "status": "pending",
+      "price": "6666666",
+      "date": "2024-04-19"
+    },
+    {
+      "id": 4.98585242460056,
+      "invoiceNumber": "RT896",
+      "name": "data",
+      "status": "paid",
+      "price": "22222",
+      "date": "2024-04-26"
+    },
+    {
+      "id": 7.646639713118606,
+      "invoiceNumber": "RT896",
+      "name": "data",
+      "status": "pending",
+      "price": "2",
+      "date": "2024-04-26"
+    }
+  ]
+}
