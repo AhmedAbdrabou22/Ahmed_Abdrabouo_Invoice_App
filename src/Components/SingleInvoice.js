@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 const SingleInvoice = () => {
     const { id } = useParams();
     const [invoice, setInvoice] = useState(null);
+    const [deleted, setDeleted] = useState(false);
 
+    //Get Single Invoice
     useEffect(() => {
         const getInvoice = async () => {
             try {
@@ -17,6 +19,18 @@ const SingleInvoice = () => {
 
         getInvoice();
     }, [id]);
+
+
+    //Delete Invoice
+    const deleteInvoice = async () => {
+        try {
+            await axios.delete(`http://localhost:3031/invoices/${id}`);
+            // After successful deletion, you may want to redirect the user or update the UI
+            setDeleted(true);
+        } catch (error) {
+            console.error('Error deleting invoice:', error);
+        }
+    };
 
     const getColor = (status) => {
         switch (status) {
@@ -46,18 +60,9 @@ const SingleInvoice = () => {
 
     return (
         <div>
-            {/* {invoice ? (
-                <div>
-                    <h1>{invoice.invoiceNumber}</h1>
-                    <p>Name: {invoice.name}</p>
-                    <p>Status: {invoice.status}</p>
-                    <p>Price: {invoice.price}</p>
-                    <p>Date: {invoice.date}</p>
-                </div>
+            {deleted ? (
+                <h1>Invoice Not Found</h1>
             ) : (
-                <p>Loading...</p>
-            )} */}
-            {
                 invoice ? (
                     <div >
                         <div className='headerSingleInvoice'>
@@ -68,22 +73,42 @@ const SingleInvoice = () => {
 
                             <div>
                                 <button className='btn' style={{ background: "#262943", borderRadius: "20px", color: "white", marginRight: "10px" }}>Edit</button>
-                                <button className='btn' style={{ background: "#ef5956", borderRadius: "20px", color: "white", marginRight: "10px" }}>Delete</button>
-                                <button className='btn' style={{ background: "#7c5df6", borderRadius: "20px", color: "white", marginRight: "10px" }}>Make As Paid</button>
+                                <button className='btn' style={{ background: "#ef5956", borderRadius: "20px", color: "white", marginRight: "10px" }} onClick={deleteInvoice}>Delete</button>
+                                {
+                                    invoice ? (invoice.status !== "paid" ? (<button className='btn' style={{ background: "#7c5df6", borderRadius: "20px", color: "white", marginRight: "10px" }}>Make As Paid</button>) : null) : null
+                                }
                             </div>
                         </div>
 
 
 
                         <div className='BodySingleInvoice mt-5'>
-                            <h2>
-                                {invoice.invoiceNumber}
-                            </h2>
+                            <div>
+                                <h2>
+                                    {invoice.invoiceNumber}
+                                </h2>
+                                <span>{invoice.desc}</span>
+                            </div>
+                            <div className='d-flex justify-content-between mt-5'>
+                                <div>
+                                    <div>
+                                        <h5>Invoice Date</h5>
+                                        <span>{invoice.date}</span>
+                                    </div>
+                                    <div className='mt-3'>
+                                        <h5>Invoice Date End</h5>
+                                        <span>{invoice.dateEnd}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>Send to</p>
+                                    <span>{invoice.clientEmail}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ) : <p>Loading...</p>
-            }
-
+            )}
         </div>
     )
 }

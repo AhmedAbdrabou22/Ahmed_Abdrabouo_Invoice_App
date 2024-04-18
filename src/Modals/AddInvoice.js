@@ -12,6 +12,13 @@ const AddInvoice = ({ getInvoices }) => {
     const [status, setStatus] = useState("");
     const [price, setPrice] = useState("");
     const [date, setDate] = useState("");
+    const [dateEnd, setDateEnd] = useState("");
+    const [city, setCitySender] = useState("");
+    const [postCode, setPostCodeSender] = useState("");
+    const [country, serCountrySender] = useState("");
+    const [clientEmail, setClientEmail] = useState("");
+    const [clientAddress, setClientAddress] = useState("");
+    const [desc, setDesc] = useState("");
 
     const handleClose = () => {
         setShow(false);
@@ -23,6 +30,12 @@ const AddInvoice = ({ getInvoices }) => {
 
 
     const addInvoice = async (newInvoice) => {
+        // التحقق من صحة البيانات قبل الإضافة
+        if (invoiceNumber === "" || name === "" || status === "" || price === "" || date === "" || city === "" || postCode === "" || country === "" || clientEmail === "" || clientAddress === "") {
+            alert('Please fill in all fields.');
+            return; // لا ينفذ الإضافة إذا كان أي من الحقول فارغًا
+        }
+
         try {
             await axios.post('http://localhost:3031/invoices', newInvoice);
             getInvoices();
@@ -30,13 +43,25 @@ const AddInvoice = ({ getInvoices }) => {
             console.error('Error adding invoice:', error);
         } finally {
             handleClose();
+            setInvoiceNumber("")
+            setName("")
+            setStatus("")
+            setPrice("")
+            setDate("")
+            setDateEnd("")
+            setCitySender("")
+            setPostCodeSender("")
+            serCountrySender("")
+            setClientEmail("")
+            setClientAddress("")
+            setDesc("")
         }
     };
+
     return (
         <div className='font invoice' style={{ width: "100%" }}>
-            <div className=''>
-                <button className='btn addInvoice' onClick={handleShow}><IoIosAddCircle fontSize={"30px"} />New Invoice</button>
-            </div>
+
+            <button className='btn addInvoice' onClick={handleShow}><IoIosAddCircle fontSize={"30px"} />New Invoice</button>
             <Modal show={show} onHide={handleClose} centered className='font' style={{ width: "100%", color: "white" }} dialogClassName="modal-lg">
                 <Modal.Body style={{ background: "#141625", padding: "10px" }}>
                     <span style={{ color: "#261a69" }}>Bill From</span>
@@ -51,23 +76,34 @@ const AddInvoice = ({ getInvoices }) => {
                                 className='inputData' name='streetAddress' id="streetAddress" />
                         </div>
                     </div>
-                    {/* <div className='d-flex mt-3'>
+                    <div className='d-flex mt-3'>
                         <div>
                             <label>City</label>
                             <br></br>
-                            <input type="text" className='inputRelated' name='City' id="City" />
+                            <input type="text"
+                                onChange={(e) => {
+                                    setCitySender(e.target.value);
+                                }} className='inputRelated' name='City' id="City" />
                         </div>
                         <div>
                             <label>Post Code</label>
                             <br></br>
-                            <input type="text" className='inputRelated' name='Post' id="Post" />
+                            <input type="number"
+
+                                onChange={(e) => {
+                                    setPostCodeSender(e.target.value);
+                                }} className='inputRelated' name='Post' id="Post" />
                         </div>
                         <div>
                             <label>Country</label>
                             <br></br>
-                            <input type="text" className='inputRelated' name='Country' id="Country" />
+                            <input type="text"
+
+                                onChange={(e) => {
+                                    serCountrySender(e.target.value);
+                                }} className='inputRelated' name='Country' id="Country" />
                         </div>
-                    </div> */}
+                    </div>
                     <span style={{ color: "#261a69" }}>Bill From</span>
                     <div className='mt-3'>
                         <div>
@@ -80,19 +116,27 @@ const AddInvoice = ({ getInvoices }) => {
                                 className='inputData' name='ClientName' id="ClientName" />
                         </div>
                     </div>
-                    {/* <div className='mt-3'>
+                    <div className='mt-3'>
                         <div>
                             <label>Client Email</label>
                             <br></br>
-                            <input type="email" className='inputData' name='Email' id="Email" />
+                            <input type="email"
+                                onChange={(e) => {
+                                    setClientEmail(e.target.value);
+                                }}
+                                className='inputData' name='Email' id="Email" />
                         </div>
-                    </div> */}
+                    </div>
                     <div className='mt-3'>
-                        {/* <div>
+                        <div>
                             <label>Client Address</label>
                             <br></br>
-                            <input type="text" className='inputData' name='ClientAddress' id="ClientAddress" />
-                        </div> */}
+                            <input type="text"
+                                onChange={(e) => {
+                                    setClientAddress(e.target.value);
+                                }}
+                                className='inputData' name='ClientAddress' id="ClientAddress" />
+                        </div>
                     </div>
                     {/* <div className='d-flex mt-3'>
                         <div>
@@ -112,25 +156,36 @@ const AddInvoice = ({ getInvoices }) => {
                         </div>
                     </div> */}
                     <div>
-                            <label>Invoice Date</label>
-                            <br></br>
-                            <div className='mt-2'>
-                                <input type='date'
-                                    onChange={(e) => {
-                                        setDate(e.target.value)
-                                    }}
-                                    className='inputData' />
-                            </div>
+                        <label>Invoice Start Date</label>
+                        <br></br>
+                        <div className='mt-2'>
+                            <input type='date'
+                                onChange={(e) => {
+                                    setDate(e.target.value)
+                                }}
+                                className='inputData' />
                         </div>
+                    </div>
+                    <div>
+                        <label>Invoice End Date</label>
+                        <br></br>
+                        <div className='mt-2'>
+                            <input type='date'
+                                onChange={(e) => {
+                                    setDateEnd(e.target.value)
+                                }}
+                                className='inputData' />
+                        </div>
+                    </div>
                     <div className='d-flex mt-3'>
                         <div>
                             <label>Invoice Price</label>
                             <br></br>
                             <input type="number"
-                            onChange={(e)=>{
-                                setPrice(e.target.value)
-                            }}
-                            className='inputRelated' name='Price' id="Price" />
+                                onChange={(e) => {
+                                    setPrice(e.target.value)
+                                }}
+                                className='inputRelated' name='Price' id="Price" />
                         </div>
                         <div>
                             <label>Status</label>
@@ -150,6 +205,19 @@ const AddInvoice = ({ getInvoices }) => {
                     </div>
 
 
+                    <div>
+                        <div>
+                            <label>Project Description</label>
+                            <br></br>
+                            <input type="text"
+                                onChange={(e) => {
+                                    setDesc(e.target.value)
+                                }}
+                                className='inputRelated' name='Price' id="Price" />
+                        </div>
+                    </div>
+
+
 
                     {/* Modal Footer */}
                     <div className='mt-3'>
@@ -162,7 +230,14 @@ const AddInvoice = ({ getInvoices }) => {
                             name: name,
                             status: status,
                             price: price,
-                            date: date
+                            date: date,
+                            city: city,
+                            postCode: postCode,
+                            country: country,
+                            dateEnd: dateEnd,
+                            desc: desc,
+                            clientEmail: clientEmail,
+                            clientAddress: clientAddress,
                         })}>
                             Add Invoice
                         </Button>
