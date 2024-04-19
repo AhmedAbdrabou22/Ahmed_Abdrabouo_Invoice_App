@@ -20,8 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start && json-server --watch db.json --port 3031",
-    "json-server": "json-server --watch db.json --port 3001",
+    "start": "react-scripts start",
+    "json-server": "json-server --watch db.json --port 3001 --host https://ahmed-abdrabouo-invoice-app.onrender.com",
     "dev": "concurrently \"npm run start\" \"npm run json-server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
