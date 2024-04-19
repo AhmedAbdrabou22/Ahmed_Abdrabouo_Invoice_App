@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { urlBase } from '../Api';
 const SingleInvoice = () => {
     const { id } = useParams();
     const [invoice, setInvoice] = useState(null);
@@ -10,7 +11,7 @@ const SingleInvoice = () => {
     useEffect(() => {
         const getInvoice = async () => {
             try {
-                const response = await axios.get(`/invoices/${id}`);
+                const response = await axios.get(`${urlBase}/invoices/${id}`);
                 setInvoice(response.data);
             } catch (error) {
                 console.error('Error fetching invoice:', error);
@@ -24,7 +25,7 @@ const SingleInvoice = () => {
     //Delete Invoice
     const deleteInvoice = async () => {
         try {
-            await axios.delete(`/invoices/${id}`);
+            await axios.delete(`${urlBase}/invoices/${id}`);
             // After successful deletion, you may want to redirect the user or update the UI
             setDeleted(true);
         } catch (error) {

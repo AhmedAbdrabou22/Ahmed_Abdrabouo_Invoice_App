@@ -4,6 +4,7 @@ import { IoIosAddCircle, IoIosArrowForward } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AddInvoice from '../Modals/AddInvoice';
+import { urlBase } from '../Api';
 
 const Invoices = () => {
     const [invoicesData, setInvoicesData] = useState([]);
@@ -11,7 +12,7 @@ const Invoices = () => {
 
     const getInvoices = async () => {
         try {
-            const response = await axios.get('/invoices');
+            const response = await axios.get(`${urlBase}/invoices`);
             setInvoicesData(response.data);
         } catch (error) {
             console.error('Error fetching invoices:', error);

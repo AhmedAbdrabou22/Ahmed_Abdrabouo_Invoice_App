@@ -5,6 +5,7 @@ import { IoIosAddCircle, IoIosArrowForward } from "react-icons/io";
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import { urlBase } from '../Api';
 const AddInvoice = ({ getInvoices }) => {
     const [show, setShow] = useState(false);
     const [invoiceNumber, setInvoiceNumber] = useState("");
@@ -37,7 +38,7 @@ const AddInvoice = ({ getInvoices }) => {
         }
 
         try {
-            await axios.post('/invoices', newInvoice);
+            await axios.post(`${urlBase}/invoices`, newInvoice);
             getInvoices();
         } catch (error) {
             console.error('Error adding invoice:', error);
