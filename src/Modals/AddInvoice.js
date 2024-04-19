@@ -37,7 +37,7 @@ const AddInvoice = ({ getInvoices }) => {
         }
 
         try {
-            await axios.post('http://localhost:3031/invoices', newInvoice);
+            await axios.post('/invoices', newInvoice);
             getInvoices();
         } catch (error) {
             console.error('Error adding invoice:', error);

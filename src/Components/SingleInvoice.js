@@ -10,7 +10,7 @@ const SingleInvoice = () => {
     useEffect(() => {
         const getInvoice = async () => {
             try {
-                const response = await axios.get(`http://localhost:3031/invoices/${id}`);
+                const response = await axios.get(`/invoices/${id}`);
                 setInvoice(response.data);
             } catch (error) {
                 console.error('Error fetching invoice:', error);
@@ -24,7 +24,7 @@ const SingleInvoice = () => {
     //Delete Invoice
     const deleteInvoice = async () => {
         try {
-            await axios.delete(`http://localhost:3031/invoices/${id}`);
+            await axios.delete(`/invoices/${id}`);
             // After successful deletion, you may want to redirect the user or update the UI
             setDeleted(true);
         } catch (error) {
