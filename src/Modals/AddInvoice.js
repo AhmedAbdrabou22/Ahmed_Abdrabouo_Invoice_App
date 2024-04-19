@@ -64,6 +64,9 @@ const AddInvoice = ({ getInvoices }) => {
             <button className='btn addInvoice' onClick={handleShow}><IoIosAddCircle fontSize={"30px"} />New Invoice</button>
             <Modal show={show} onHide={handleClose} centered className='font' style={{ width: "100%", color: "white" }} dialogClassName="modal-lg">
                 <Modal.Body style={{ background: "#141625", padding: "10px" }}>
+
+
+                    {/* Modal Body */}
                     <span style={{ color: "#261a69" }}>Bill From</span>
                     <div className='mt-3'>
                         <div>
@@ -138,23 +141,6 @@ const AddInvoice = ({ getInvoices }) => {
                                 className='inputData' name='ClientAddress' id="ClientAddress" />
                         </div>
                     </div>
-                    {/* <div className='d-flex mt-3'>
-                        <div>
-                            <label>City</label>
-                            <br></br>
-                            <input type="text" className='inputRelated' name='City' id="City" />
-                        </div>
-                        <div>
-                            <label>Post Code</label>
-                            <br></br>
-                            <input type="text" className='inputRelated' name='Post' id="Post" />
-                        </div>
-                        <div>
-                            <label>Country</label>
-                            <br></br>
-                            <input type="text" className='inputRelated' name='Country' id="Country" />
-                        </div>
-                    </div> */}
                     <div>
                         <label>Invoice Start Date</label>
                         <br></br>
